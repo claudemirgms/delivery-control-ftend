@@ -29,7 +29,7 @@ submitBtn.addEventListener("click", () => {
 
 function createPackage(){
     const unity_id = document.querySelector('option[value="' + txtUnities.value + '"]').id
-    const url = "http://localhost:3333/create-package"
+    const url = "https://delivery-control-bkend.herokuapp.com/create-package"
     const body = {
         "unity_id": unity_id,
         "company": company.value,
@@ -111,7 +111,7 @@ function insertRowList(data){
 }
 
 function getPackages(){
-    const url = "http://localhost:3333/get-packages"
+    const url = "https://delivery-control-bkend.herokuapp.com/get-packages"
     axios.get(url, { 
         headers: {
             "Authorization" : `Bearer ${localStorage.getItem("token")}`
@@ -129,7 +129,7 @@ getPackages()
 function getUnities(){    
     unitiesDataList.innerHTML = ""
     
-    const urlUnities = "http://localhost:3333/get-unities"    
+    const urlUnities = "https://delivery-control-bkend.herokuapp.com/get-unities"    
     
     axios.get(urlUnities, { headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`}})
     .then(response => {
@@ -163,7 +163,7 @@ function getUnities(){
 getUnities()
 
 function deliver(package_id){    
-    const url = "http://localhost:3333/deliver-package/" + package_id
+    const url = "https://delivery-control-bkend.herokuapp.com/deliver-package/" + package_id
     const body = {
         "dateArrival": dateArrival.value, 
         "status": "Entregue"

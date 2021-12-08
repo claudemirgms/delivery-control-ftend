@@ -34,7 +34,7 @@ submitBtnLogin.addEventListener("click", () => {
 });
 
 function getSession(){
-    const urlSession = "http://localhost:3333/get-session"
+    const urlSession = "https://delivery-control-bkend.herokuapp.com/get-session"
     
     const body = {
         "email": email.value,

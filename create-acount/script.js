@@ -110,7 +110,7 @@ function formValidation(){
 
 function createUser(){    
     console.log("inicio")
-    const urlCreateUser = "http://localhost:3333/create-user"
+    const urlCreateUser = "https://delivery-control-bkend.herokuapp.com/create-user"
     console.log(urlCreateUser)
     const body = {
         "email": email.value,
