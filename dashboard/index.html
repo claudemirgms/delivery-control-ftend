@@ -1,0 +1,63 @@
+<html lang="en" dir="ltr"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Entregas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>    
+</head>
+<body>   
+    <div class="wrapper">
+        <div class="col">
+            <div>
+                <h1>Entregas</h1>
+            </div>
+            <div class="input-box">
+                <input list="unities" name="txtUnities" id="txtUnities">
+                <datalist id="unities">
+                    <option value="0">
+                </datalist>
+                <label for="unities">Apartamento</label>
+            </div>
+            <div class="input-box">
+                <input id="company" type="text" required>
+                <label>Empresa</label>        
+            </div>
+            <div class="input-box">
+                <input id="packageCod" type="text" required>
+                <label>Código Pacote</label>        
+            </div>
+            <div class="input-box-date">
+                <input id="dateArrival" type="date" value="" required>
+                <label>Data Entrega</label>        
+            </div>
+            <!-- <div class="input-box">
+                <input id="status" type="text" required>
+                <label>status</label>        
+            </div> -->
+            <div class="input-box button">
+                <input id="button" type="button" value="Cadastrar">
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <h1>Lista Cadastrada</h1>
+            </div>
+            <div class="hr-list">
+                <div class="row">
+                    <div class="col-unity hr">Apto.</div>
+                    <div class="col-company hr">Empresa</div>
+                    <div class="col-package-cod hr">Cod. pacote</div>                    
+                    <div class="col-date hr">Dt. Cadastro</div>                    
+                    <div class="col-status hr">Status</div>
+                    <div class="col-deliver hr">&nbsp;</div>
+                </div>
+            </div>           
+            <div class="list">                
+            </div>             
+        </div>
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

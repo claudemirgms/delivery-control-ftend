@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+    font-family: "Poppins", sans-serif;
+    font-size: 1.em;
+}
+.wrapper{
+    background: #FFF;
+    /* padding: 35px 0 0 40px; */
+    /* border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.2); */
+    /* display: flex; 
+    align-items: flex-start;*/
+
+}
+.wrapper .input-box,
+.wrapper .input-box-date,
+.wrapper .select-box{
+    position: relative;
+    max-width: 500px;
+    height: 60px;
+    margin: 25px 0;
+}
+.input-box input,
+.input-box-date input{
+    height: 100%;
+    width: 100%;
+    background: #FFF;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    /* outline: none; */
+    border-radius: 6px;
+    padding: 0 16px;
+    border: 2px solid #a6a6a6;
+    transition: all 0.3s ease;
+}
+.input-box input:focus,
+.input-box-date input:focus{
+    border-color: #4070F4;
+}
+.input-box label,
+.input-box i{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a6a6a6;
+}
+.input-box label{
+    left: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    background: #FFF;
+    padding: 0 6px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.input-box input:focus ~ label,
+.input-box input:valid ~ label{
+    top: 0;    
+    font-size: 14px;
+    background: #fff;
+}
+.input-box-date label{
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    color: #a6a6a6;
+    font-size: 14px;
+    background: #fff;
+    font-weight: 400;
+    padding: 0 6px;
+}
+.input-box input:focus ~ label,
+.input-box-date input:focus ~ label{
+    color: #4070F4;
+}
+
+/* .input-box input:valid ~ label,
+.input-box-date input:valid ~ label,
+.select-box select:valid ~ label{
+    color: #a6a6a6;
+} */
+.input-box.button #button{
+    background: #4070F4;
+    border: none;
+    font-size: 20px;
+    color: #FFF;
+    letter-spacing: 1px;    
+    /* cursor: not-allowed;  */
+}
+.input-box.button #button.active:hover{
+    background: #265df2;
+    cursor: pointer;
+}
+.wrapper .col{
+    margin: 10px;
+    float: left;
+}
+.list, .hr-list{
+    /* border-collapse: collapse; */
+    width: 100%;
+    max-width: 1300px;    
+}
+.list .row,
+.hr-list .row{
+    /* border:1px black solid; */
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    border-radius: 6px;
+}
+.list .row:nth-child(even) {
+    background: #FFF
+}
+.list .row:nth-child(odd) {
+    background: #EEE
+}
+.row .col-unity,
+.row .col-company,
+.row .col-package-cod,
+.row .col-date,
+.row .col-status,
+.row .col-deliver{
+    margin: 10px;    
+}
+.row .col-unity{
+    width: 10%;
+}
+.row .col-company{
+    width: 25%;
+}
+.row .col-package-cod,
+.row .col-date{
+    width: 20%;
+    min-width: 100px;
+}
+.row .col-status{
+    width: 14%;
+    min-width: 80px;
+}
+.row .col-deliver{    
+    width: 9%;
+    min-width: 85px;
+}
+.row .col-deliver input{
+    background: #4070F4;
+    border: none;
+    color: #FFF;    
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 0 6px;
+}
+.row .col-deliver input:hover{
+    background: #265df2;
+    cursor: pointer;
+}
+.row .hr{
+    font-size: 20px;
+    font-weight: 600;
+}
+.full_list{
+    width: 200px;
+    border-collapse: collapse;
+}
+.full_list li{
+    border:1px black solid;
+}
+.full_list li:nth-child(even) {
+    background: #FFF
+}
+.full_list li:nth-child(odd) {
+    background: #EEE
+}

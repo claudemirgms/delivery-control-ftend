@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head lang="pt-BR">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Controle de Entrega</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body>
+    <form id="form" method="post" action="../dashboard/"><input type="hidden" id="token" /></form>
+    <div class="wrapper">
+        <div class="input-box">
+            <input id="email" type="text" required>
+            <label>E-mail</label>
+        </div>
+        <div class="input-box">
+            <input id="password" type="password" required>
+            <label>Senha</label>
+            <i class="fas fa-eye-slash show"></i>
+        </div>
+        <div class="alert">
+            <i class="fas fa_exclamation-cicle alertIcon"></i>
+            <span class="alertText"></span>
+        </div>
+        <div class="input-box button">
+            <input id="btnLogin" type="button" value="Entrar">
+        </div>
+        <div class="create-acount">
+            <a href="../create-acount">Cadastrar-se</a>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="scripts.js"></script>
+</body>

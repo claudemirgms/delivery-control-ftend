@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+body{
+    background: #4070F4;
+    height: 100vh;
+    width: 100%;
+    display: flex;    
+    align-items: center;
+    justify-content: center;    
+    padding: 0 30px;
+}
+.wrapper{
+    max-width: 480px;
+    width: 100%;
+    background: #FFF;
+    padding: 35px 40px;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.2);
+}
+.wrapper .input-box{
+    position: relative;
+    height: 60px;
+    margin: 25px 0;
+}
+.input-box input{
+    height: 100%;
+    width: 100%;
+    background: #FFF;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    outline: none;
+    border-radius: 6px;
+    padding: 0 40px 0 16px;
+    border: 2px solid #a6a6a6;
+    transition: all 0.3s ease;
+}
+.input-box input:focus{
+    border-color: #4070F4;
+}
+.input-box label,
+.input-box i{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a6a6a6;
+}
+.input-box label{
+    left: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    background: #FFF;
+    padding: 0 6px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.input-box input:focus ~ label,
+.input-box input:valid ~ label{
+    top: 0;
+    color: #4070F4;
+    font-size: 14px;
+    background: #fff;
+}
+.input-box i{
+    right: 15px;
+    padding: 8px;
+    cursor: pointer;
+}
+.alert{
+    display: flex;
+    align-items: center;
+    margin-top: -13px;
+}
+.alert .errorIconCreate,
+.alert .errorIconEmail{
+    margin-right: 8px;
+    color: #D93025;
+    font-size: 18px;
+    display: none;
+}
+.alert .textCreate,
+.alert .textEmail{
+    color: #a6a6a6;
+    font-size: 18px;
+    font-weight: 500;    
+}
+.alert .textEmail{
+    display: none;
+}
+.input-box.button #btnCreate,
+.input-box.button #btnLogin{
+    background: #4070F4;
+    border: none;
+    font-size: 20px;
+    color: #FFF;
+    letter-spacing: 1px;    
+}
+.input-box.button #btnCreate{
+    cursor: not-allowed; 
+}
+.input-box.button #btnCreate.active:hover,
+.input-box.button #btnLogin{
+    background: #265df2;
+    cursor: pointer;
+}
+
+.create-acount a{
+    text-decoration: none;
+}
+.select-box select{
+    height: 100%;
+    width: 100%;
+    background: #FFF;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    outline: none;
+    border-radius: 6px;
+    padding: 0 40px 0 16px;
+    border: 2px solid #a6a6a6;
+    transition: all 0.3s ease;
+}
+.select-box select:focus{
+    border-color: #4070F4;
+}
+.select-box label{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a6a6a6;
+    left: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    background: #FFF;
+    padding: 0 6px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.select-box select:focus ~ label,
+.select-box select:valid ~ label{
+    top: 0;
+    color: #4070F4;
+    font-size: 14px;
+    background: #fff;
+}
