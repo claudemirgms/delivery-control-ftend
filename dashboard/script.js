@@ -1,5 +1,8 @@
 const urlApiDev = "http://localhost:3333"
 const urlApiPrd = "https://delivery-control-bkend.herokuapp.com"
+const modal = document.querySelector("#modal"),
+close = document.querySelector("#close"),
+message = document.querySelector("#message");
 const txtUnities = document.querySelector("#txtUnities"),
 company = document.querySelector("#company"),
 packageCod = document.querySelector("#packageCod"),
@@ -25,8 +28,25 @@ if(url.indexOf("token") > 0){
 
 submitBtn.addEventListener("click", () => {
     console.log("clicou")
+    if(txtUnities.value === "") {
+        txtUnities.focus()
+        message.innerText = "Informe o Apartamento"
+        modal.style.display = "block";
+        return
+    }
     createPackage()    
 });
+
+close.addEventListener("click", () => {
+    modal.style.display = "none"
+    if(message.innerText === "Informe o Apartamento") txtUnities.focus()
+});
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 
 function createPackage(){
     const unity_id = document.querySelector('option[value="' + txtUnities.value + '"]').id
@@ -48,6 +68,9 @@ function createPackage(){
     .then(response => {
         console.log(response)
         getPackages()
+        message.innerText = "Pacote cadastrado com sucesso!"
+        modal.style.display = "block";
+
     })
     .catch(error => {
         console.log(error)
@@ -180,6 +203,8 @@ function deliver(package_id){
     .then(response => {
         console.log(response)
         getPackages()
+        message.innerText = "Pacote entregue com sucesso!"
+        modal.style.display = "block";
     })
     .catch(error => {
         console.log(error)
@@ -214,3 +239,4 @@ function enterClick(event){
         submitBtn.click();    
     }
 }
+
