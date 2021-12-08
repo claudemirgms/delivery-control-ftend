@@ -1,4 +1,5 @@
-// page create-acount
+const urlApiDev = "http://localhost:3333"
+const urlApiPrd = "https://delivery-control-bkend.herokuapp.com"
 const txtUnities = document.querySelector("#txtUnities"),
 company = document.querySelector("#company"),
 packageCod = document.querySelector("#packageCod"),
@@ -29,7 +30,7 @@ submitBtn.addEventListener("click", () => {
 
 function createPackage(){
     const unity_id = document.querySelector('option[value="' + txtUnities.value + '"]').id
-    const url = "https://delivery-control-bkend.herokuapp.com/create-package"
+    const url = urlApiDev + "/create-package"
     const body = {
         "unity_id": unity_id,
         "company": company.value,
@@ -63,6 +64,7 @@ function insertRowList(data){
         // if(!found)
         // {
             //console.log(element)
+        // if(element.status === "Cadastrado"){
             const row = document.createElement("div")
             row.classList.add("row")
             const colCompany = document.createElement("div"),
@@ -105,13 +107,14 @@ function insertRowList(data){
     
             list.appendChild(row)
             globalList.push(element)
+        // }
         //}
     });
     
 }
 
 function getPackages(){
-    const url = "https://delivery-control-bkend.herokuapp.com/get-packages"
+    const url = urlApiDev + "/get-packages"
     axios.get(url, { 
         headers: {
             "Authorization" : `Bearer ${localStorage.getItem("token")}`
@@ -129,7 +132,7 @@ getPackages()
 function getUnities(){    
     unitiesDataList.innerHTML = ""
     
-    const urlUnities = "https://delivery-control-bkend.herokuapp.com/get-unities"    
+    const urlUnities = urlApiDev + "/get-unities"    
     
     axios.get(urlUnities, { headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`}})
     .then(response => {
@@ -148,10 +151,10 @@ function getUnities(){
         unities.forEach(unity => {
             var option = document.createElement('option');
             option.value = unity.apartment + ' - ' + unity.block;
-            if(unity.senders.length > 0){
+            if(unity.addressees.length > 0){
                 //console.log(unity.senders)
-                unity.senders.forEach(element => {
-                    option.label += element.name + "/"
+                unity.addressees.forEach(element => {
+                    option.label += element.name + " "
                 });
             }
             option.id = unity._id
@@ -163,7 +166,7 @@ function getUnities(){
 getUnities()
 
 function deliver(package_id){    
-    const url = "https://delivery-control-bkend.herokuapp.com/deliver-package/" + package_id
+    const url = urlApiDev + "/deliver-package/" + package_id
     const body = {
         "dateArrival": dateArrival.value, 
         "status": "Entregue"
