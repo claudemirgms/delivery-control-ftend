@@ -149,6 +149,17 @@ function getPackages(){
         }
     })
     .then(response => {
+        response.data
+        .sort((a, b) => {
+            if (a._id > b._id) return -1
+            if (a._id < b._id) return 1
+            return 0
+        })
+        .sort((a, b) => {
+            if (a.status > b.status) return 1
+            if (a.status < b.status) return -1
+            return 0
+        })
         insertRowList(response.data)        
     })
     .catch(error => {
