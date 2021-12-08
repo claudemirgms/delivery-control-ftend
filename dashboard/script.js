@@ -67,8 +67,13 @@ function createPackage(){
     })
     .then(response => {
         console.log(response)
-        getPackages()
-        message.innerText = "Pacote cadastrado com sucesso!"
+        if(!response.data.error){
+            getPackages()
+            message.innerText = "Pacote cadastrado com sucesso!"
+        }
+        else{
+            message.innerText = response.data.error
+        }
         modal.style.display = "block";
 
     })
