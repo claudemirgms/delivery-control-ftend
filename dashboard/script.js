@@ -1,5 +1,5 @@
-const urlApiDev = "http://localhost:3333"
-const urlApiPrd = "https://delivery-control-bkend.herokuapp.com"
+//const urlApi = "http://localhost:3333"
+const urlApi = "https://delivery-control-bkend.herokuapp.com"
 const modal = document.querySelector("#modal"),
 close = document.querySelector("#close"),
 message = document.querySelector("#message");
@@ -9,6 +9,7 @@ packageCod = document.querySelector("#packageCod"),
 dateArrival = document.querySelector("#dateArrival"),
 unity = document.querySelector("#unity"),
 submitBtn = document.querySelector("#button"),
+btnSearch = document.querySelector("#btnSearch"),
 unitiesDataList = document.querySelector("#unities"),
 unities = document.querySelector("#unities"),
 list = document.querySelector(".list")
@@ -37,6 +38,10 @@ submitBtn.addEventListener("click", () => {
     createPackage()    
 });
 
+btnSearch.addEventListener("click", () => {
+    searchPackages()
+});
+
 close.addEventListener("click", () => {
     modal.style.display = "none"
     if(message.innerText === "Informe o Apartamento") txtUnities.focus()
@@ -50,7 +55,7 @@ window.onclick = function(event) {
 
 function createPackage(){
     const unity_id = document.querySelector('option[value="' + txtUnities.value + '"]').id
-    const url = urlApiDev + "/create-package"
+    const url = urlApi + "/create-package"
     const body = {
         "unity_id": unity_id,
         "company": company.value,
@@ -142,7 +147,7 @@ function insertRowList(data){
 }
 
 function getPackages(){
-    const url = urlApiDev + "/get-packages"
+    const url = urlApi + "/get-packages"
     axios.get(url, { 
         headers: {
             "Authorization" : `Bearer ${localStorage.getItem("token")}`
@@ -168,10 +173,37 @@ function getPackages(){
 }
 getPackages()
 
+function searchPackages(){
+    const unity_id = document.querySelector('option[value="' + txtUnities.value + '"]').id
+    const url = urlApi + "/get-package/" + unity_id
+    axios.get(url, { 
+        headers: {
+            "Authorization" : `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    .then(response => {
+        response.data
+        .sort((a, b) => {
+            if (a._id > b._id) return -1
+            if (a._id < b._id) return 1
+            return 0
+        })
+        .sort((a, b) => {
+            if (a.status > b.status) return 1
+            if (a.status < b.status) return -1
+            return 0
+        })
+        insertRowList(response.data)        
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
+
 function getUnities(){    
     unitiesDataList.innerHTML = ""
     
-    const urlUnities = urlApiDev + "/get-unities"    
+    const urlUnities = urlApi + "/get-unities"    
     
     axios.get(urlUnities, { headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`}})
     .then(response => {
@@ -205,7 +237,7 @@ function getUnities(){
 getUnities()
 
 function deliver(package_id){    
-    const url = urlApiDev + "/deliver-package/" + package_id
+    const url = urlApi + "/deliver-package/" + package_id
     const body = {
         "dateArrival": dateArrival.value, 
         "status": "Entregue"
