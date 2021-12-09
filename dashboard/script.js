@@ -89,6 +89,7 @@ function createPackage(){
           
 function insertRowList(data){   
     list.innerHTML = ""
+    globalList = []
     data.forEach(element => {
         // var found = globalList.find(function(item, index) {
         //     if(item._id == element._id)
@@ -98,52 +99,62 @@ function insertRowList(data){
         // {
             //console.log(element)
         // if(element.status === "Cadastrado"){
-            const row = document.createElement("div")
-            row.classList.add("row")
-            const colCompany = document.createElement("div"),
-            colUnity = document.createElement("div"),
-            colPackageCod = document.createElement("div"),
-            colDate = document.createElement("div"),
-            colStatus  = document.createElement("div"),
-            colDeliver  = document.createElement("div");
-    
-            colUnity.classList.add("col-unity")
-            colUnity.innerText = element.unity.length > 0 ?
-                                    element.unity[0].apartment + " " + element.unity[0].block : ""
-            row.appendChild(colUnity)
-
-            colCompany.classList.add("col-company")
-            colCompany.innerText = element.company
-            row.appendChild(colCompany)
-    
-            colPackageCod.classList.add("col-package-cod")
-            colPackageCod.innerText = element.package_cod
-            row.appendChild(colPackageCod)
-
-            colDate.classList.add("col-date")
-            colDate.innerText = element.dateArrival
-            row.appendChild(colDate)
-
-            colStatus.classList.add("col-status")
-            colStatus.innerText = element.status
-            row.appendChild(colStatus)
-
-            colDeliver.classList.add("col-deliver")
-            if(element.status === "Cadastrado"){
-                const button = document.createElement("INPUT");
-                button.setAttribute("type", "button");
-                button.setAttribute("value", "Entregar")
-                button.setAttribute("onclick", `deliver('${element._id}')`)
-                colDeliver.appendChild(button)
-            }
-            row.appendChild(colDeliver)
-    
-            list.appendChild(row)
+            insertRow(element)
             globalList.push(element)
         // }
         //}
     });
     
+}
+
+function insertRow(element){
+    const row = document.createElement("div")
+    row.classList.add("row")
+    const colCompany = document.createElement("div"),
+    colUnity = document.createElement("div"),
+    colPackageCod = document.createElement("div"),
+    colDate = document.createElement("div"),
+    colStatus  = document.createElement("div"),
+    colDeliver  = document.createElement("div"),
+    colDelete  = document.createElement("div");
+
+    //console.log(element)
+    colUnity.classList.add("col-unity")
+    colUnity.innerText = element.unity != null && element.unity.length > 0 ?
+                            element.unity[0].apartment + " " + element.unity[0].block : ""
+    row.appendChild(colUnity)
+
+    colCompany.classList.add("col-company")
+    colCompany.innerText = element.company
+    row.appendChild(colCompany)
+
+    colPackageCod.classList.add("col-package-cod")
+    colPackageCod.innerText = element.package_cod
+    row.appendChild(colPackageCod)
+
+    colDate.classList.add("col-date")
+    colDate.innerText = element.dateArrival
+    row.appendChild(colDate)
+
+    colStatus.classList.add("col-status")
+    colStatus.innerText = element.status
+    row.appendChild(colStatus)
+
+    colDeliver.classList.add("col-deliver")
+    if(element.status === "Cadastrado"){
+        const button = document.createElement("INPUT");
+        button.setAttribute("type", "button");
+        button.setAttribute("value", "Entregar")
+        button.setAttribute("onclick", `deliver('${element._id}')`)
+        colDeliver.appendChild(button)
+    }
+    row.appendChild(colDeliver)
+
+    colDelete.classList.add("col-delete")
+    colDelete.innerHTML = `<i class="far fa-trash-alt 5x" onclick="deletePackage('${element._id}')"></i>`
+    row.appendChild(colDelete)
+
+    list.appendChild(row)
 }
 
 function getPackages(){
@@ -174,30 +185,17 @@ function getPackages(){
 getPackages()
 
 function searchPackages(){
-    const unity_id = document.querySelector('option[value="' + txtUnities.value + '"]').id
-    const url = urlApi + "/get-package/" + unity_id
-    axios.get(url, { 
-        headers: {
-            "Authorization" : `Bearer ${localStorage.getItem("token")}`
-        }
-    })
-    .then(response => {
-        response.data
-        .sort((a, b) => {
-            if (a._id > b._id) return -1
-            if (a._id < b._id) return 1
-            return 0
-        })
-        .sort((a, b) => {
-            if (a.status > b.status) return 1
-            if (a.status < b.status) return -1
-            return 0
-        })
-        insertRowList(response.data)        
-    })
-    .catch(error => {
-        console.log(error)
-    })
+    if(txtUnities.value === ""){
+        getPackages()
+    }
+    else{
+        const unity_id = document.querySelector('option[value="' + txtUnities.value + '"]').id
+        const data = globalList.filter(p => p.unity_id === unity_id)
+        list.innerHTML = ""
+        data.forEach(element => {
+            insertRow(element)       
+        });
+    }    
 }
 
 function getUnities(){    
@@ -252,6 +250,25 @@ function deliver(package_id){
         console.log(response)
         getPackages()
         message.innerText = "Pacote entregue com sucesso!"
+        modal.style.display = "block";
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
+
+function deletePackage(package_id){    
+    const url = urlApi + "/delete-package/" + package_id
+    console.log(url)
+    axios.delete(url, { 
+        headers: {
+            "Authorization" : `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    .then(response => {
+        console.log(response)
+        getPackages()
+        message.innerText = "Pacote Deletado com sucesso!"
         modal.style.display = "block";
     })
     .catch(error => {

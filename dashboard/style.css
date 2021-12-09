@@ -178,7 +178,8 @@
 .row .col-package-cod,
 .row .col-date,
 .row .col-status,
-.row .col-deliver{
+.row .col-deliver,
+.row .col-delete{
     margin: 10px;    
 }
 .row .col-unity{
@@ -211,6 +212,14 @@
 .row .col-deliver input:hover{
     background: #265df2;
     cursor: pointer;
+}
+.row .col-delete{
+    width: 20px;
+}
+.row .col-delete i{
+    border: none;
+    cursor: pointer;
+    size: 20px;
 }
 .row .hr{
     font-size: 20px;
