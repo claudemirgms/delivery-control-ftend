@@ -19,16 +19,7 @@ let token = "";
 
 dateArrival.value = new Date().toISOString().slice(0, 10)
 
-const url = window.location.href
-if(url.indexOf("token") > 0){
-    const parts = url.split('?')
-    token = parts[1].replace("token=", "")
-    window.localStorage.setItem("token", token)
-    window.location.href = parts[0].replace("index.html", "")
-}
-
 submitBtn.addEventListener("click", () => {
-    console.log("clicou")
     if(txtUnities.value === "") {
         txtUnities.focus()
         message.innerText = "Informe o Apartamento"
@@ -67,11 +58,10 @@ function createPackage(){
 
     axios.post(url, body, { 
         headers: {
-            "Authorization" : `Bearer ${localStorage.getItem("token")}`
+            "Authorization" : `Bearer ${sessionStorage.getItem("token")}`
         }
     })
     .then(response => {
-        console.log(response)
         if(!response.data.error){
             getPackages()
             message.innerText = "Pacote cadastrado com sucesso!"
@@ -118,7 +108,6 @@ function insertRow(element){
     colDeliver  = document.createElement("div"),
     colDelete  = document.createElement("div");
 
-    //console.log(element)
     colUnity.classList.add("col-unity")
     colUnity.innerText = element.unity != null && element.unity.length > 0 ?
                             element.unity[0].apartment + " " + element.unity[0].block : ""
@@ -161,7 +150,7 @@ function getPackages(){
     const url = urlApi + "/get-packages"
     axios.get(url, { 
         headers: {
-            "Authorization" : `Bearer ${localStorage.getItem("token")}`
+            "Authorization" : `Bearer ${sessionStorage.getItem("token")}`
         }
     })
     .then(response => {
@@ -203,7 +192,7 @@ function getUnities(){
     
     const urlUnities = urlApi + "/get-unities"    
     
-    axios.get(urlUnities, { headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`}})
+    axios.get(urlUnities, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("token")}`}})
     .then(response => {
         let unities = response.data
         .sort((a, b) => {
@@ -221,7 +210,6 @@ function getUnities(){
             var option = document.createElement('option');
             option.value = unity.apartment + ' - ' + unity.block;
             if(unity.addressees.length > 0){
-                //console.log(unity.senders)
                 unity.addressees.forEach(element => {
                     option.label += element.name + " "
                 });
@@ -240,17 +228,18 @@ function deliver(package_id){
         "dateArrival": dateArrival.value, 
         "status": "Entregue"
     }
-    console.log(url)
+    
     axios.post(url, body, { 
         headers: {
-            "Authorization" : `Bearer ${localStorage.getItem("token")}`
+            "Authorization" : `Bearer ${sessionStorage.getItem("token")}`
         }
     })
     .then(response => {
-        console.log(response)
-        getPackages()
-        message.innerText = "Pacote entregue com sucesso!"
-        modal.style.display = "block";
+        if(response.status === 200){
+            getPackages()
+            message.innerText = "Pacote entregue com sucesso!"
+            modal.style.display = "block";
+        }
     })
     .catch(error => {
         console.log(error)
@@ -259,17 +248,18 @@ function deliver(package_id){
 
 function deletePackage(package_id){    
     const url = urlApi + "/delete-package/" + package_id
-    console.log(url)
+    
     axios.delete(url, { 
         headers: {
-            "Authorization" : `Bearer ${localStorage.getItem("token")}`
+            "Authorization" : `Bearer ${sessionStorage.getItem("token")}`
         }
     })
     .then(response => {
-        console.log(response)
-        getPackages()
-        message.innerText = "Pacote Deletado com sucesso!"
-        modal.style.display = "block";
+        if(response.status === 200){
+            getPackages()
+            message.innerText = "Pacote Deletado com sucesso!"
+            modal.style.display = "block";
+        }
     })
     .catch(error => {
         console.log(error)

@@ -45,18 +45,17 @@ function getSession(){
     .then(response => {
         if(response.status == 200){
             const data = response.data;
-
-            const token = document.querySelector("#token")
-            token.value = data.token
-            console.log(token.value)
+            
+            window.sessionStorage.setItem("token", data.token)
+            
+            if(data.user.email === "admin"){                
+                window.location.href = "../dashboard"
+            }
             
             alertText.innerText = "Password Ok";
             alertText.style.color = "#4070F4";
             alertIcon.style.display = "none";
             
-            if(data.user.email === "admin"){                
-                window.location.href = "../dashboard/index.html?" + "token=" + token.value
-            }
         }                    
     })
     .catch(error => {

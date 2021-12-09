@@ -96,8 +96,6 @@ function passwordValidation(){
 }
 
 function formValidation(){
-    console.log("validatedEmail: " + validatedEmail)
-    console.log("validatedPassword: " + validatedPassword)
     if(validatedEmail && validatedPassword){                
         submitBtnCreate.removeAttribute("disabled");
         submitBtnCreate.classList.add("active");                
@@ -109,9 +107,7 @@ function formValidation(){
 }
 
 function createUser(){    
-    console.log("inicio")
     const urlCreateUser = "https://delivery-control-bkend.herokuapp.com/create-user"
-    console.log(urlCreateUser)
     const body = {
         "email": email.value,
 	    "password": password.value,
@@ -120,14 +116,12 @@ function createUser(){
     
     axios.post(urlCreateUser, body)
     .then(response => {
-        console.log(response)        
         if(!response.data.error){
             alertTextCreate.style.color = "#4070F4";
             alertIconCreate.style.display = "none";  
             window.location.href = "../login/"          
         }
         else{
-            console.log(response.data.error)
             alertTextCreate.innerText = response.data.error;
             alertTextCreate.style.color = "#D93025";
             alertIconCreate.style.display = "block";    
