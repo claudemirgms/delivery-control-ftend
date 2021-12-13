@@ -1,4 +1,6 @@
-// page index
+//const urlApi = "http://localhost:3333"
+const urlApi = "https://delivery-control-bkend.herokuapp.com"
+
 const email = document.querySelector('#email'),
 password = document.querySelector("#password"),
 showPassword = document.querySelector(".show"),
@@ -34,22 +36,26 @@ submitBtnLogin.addEventListener("click", () => {
 });
 
 function getSession(){
-    const urlSession = "https://delivery-control-bkend.herokuapp.com/get-session"
+    const url = `${urlApi}/get-session`
     
     const body = {
         "email": email.value,
 	    "password": password.value
     }
     
-    axios.post(urlSession, body)
+    axios.post(url, body)
     .then(response => {
         if(response.status == 200){
             const data = response.data;
-            
+            console.log(data)
             window.sessionStorage.setItem("token", data.token)
             
             if(data.user.email === "admin"){                
                 window.location.href = "../dashboard"
+            }
+            else{
+                window.sessionStorage.setItem("unity_id", data.user.unity_id)
+                window.location.href = "../home"
             }
             
             alertText.innerText = "Password Ok";

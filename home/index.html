@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head lang="pt-BR">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Controle de Entrega</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-content">
+            <div class="logo">
+                <img src="../images/logoplano.svg" alt="">
+                <span class="logo-name">Plano&Raposo</span>
+            </div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="">
+                    <i class='bx bxs-package'></i>
+                    <span class="link-name">Entregas</span>
+                </a>
+                <span class="tooltip">Encomendas</span>
+            </li>
+            <li>
+                <a href="">
+                    <i class='bx bxs-user-plus'></i>
+                    <span class="link-name">Destinatários</span>
+                </a>
+                <span class="tooltip">Destinatários</span>
+            </li>            
+        </ul>
+    </div>
+    <div class="home-content">
+        <div class="text">
+            Lista de Encomendas            
+        </div>
+        <div class="header-list">
+            <div class="row">
+                <div class="col-unity">Apto.</div>
+                <div class="col-company">Empresa</div>
+                <div class="col-package-cod">Cod. pacote</div>                    
+                <div class="col-date">Dt. Cadastro</div>                    
+                <div class="col-status">Status</div>                
+            </div>
+        </div>           
+        <div class="list">                
+        </div>             
+    </div>    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
