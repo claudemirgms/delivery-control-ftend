@@ -200,7 +200,7 @@ body{
 .full_list li:nth-child(odd) {
     background: #EEE
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 730px) {
     .sidebar{
         width: 60px;
     }
